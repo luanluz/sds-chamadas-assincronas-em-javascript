@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chamadas Assíncronas em JavaScript</title>
+</head>
+<body>
+    <main>
+        <h1>Usando método fetch para requisição assíncronas em JavaScript</h1>
+        <div id="resultados"></div>
+        <div id="dados"></div>
+    </main>
+
+    <script>
+        // Solicitar dados da API
+        const request = async () => {
+            const API_URL = 'https://jsonplaceholder.typicode.com/photos'
+            const response = await fetch(API_URL)
+
+            return await response.json()
+        }
+
+        // Montar e obter lista HTML com os dados obtidos 
+        const getHTMLListFromData = (data) => {
+            let list = '<ul>'
+                
+            data.forEach(element => list += `<li>${element.title}</li>`)
+
+            return list += '</ul>'
+        }
+
+        // Obtendo os dados da API e apresentando em lista
+        request().then(results => document.querySelector('#dados').innerHTML = getHTMLListFromData(results))
+
+        document.querySelector('#resultados').innerHTML = '<h2>Dados obtidos do servidor!</h2>'
+    </script>
+</body>
+</html>
